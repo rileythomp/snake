@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width,initial-scale=1'>
+        <title>Snake</title>
+        <link rel='shortcut icon' href='' type='image/png'>
+        <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Poppins|Rubik|Lato|Raleway|Montserrat' type='text/css'>
+        <link rel='stylesheet/less' type='text/css' href='styles/styles.less' />
+        <script src='js/less.min.js' ></script>
+    </head>
+    <body>
+        <div class='game-header'>
+            <p id='timer'>00:00</p>
+            <p>Score: <span id='score'>0</span> </p>
+            <p id='game-msg'>&nbsp;</p>
+        </div>
+
+        <table id='board'>
+
+        </table>
+
+        <select id='level-select'>
+            <option value='200'>Easy</option>
+            <option value='125'>Medium</option>
+            <option value='75'>Hard</option>
+        </select>
+
+        <button id='play-again' onclick='restart_game()'>Play Again</button>
+    </body>
+    <script src='js/snake.js'></script>
+    <script src='js/food.js'></script>
+    <script src='js/main.js'></script>
+</html>
