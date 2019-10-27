@@ -20,15 +20,24 @@
 
         </table>
 
-        <select id='level-select'>
-            <option value='200'>Easy</option>
-            <option value='125'>Medium</option>
-            <option value='75'>Hard</option>
-        </select>
+        <div id='game-settings'>
+            <select id='level-select'>
+                <option value='200'>Easy</option>
+                <option value='125'>Medium</option>
+                <option value='75'>Hard</option>
+            </select>
+            <select id='attacker-select'>
+                <option value='0'>0</option>
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+            </select>
+        </div>
 
         <button id='play-again' onclick='restart_game()'>Play Again</button>
     </body>
     <script src='js/snake.js'></script>
     <script src='js/food.js'></script>
+    <script src='js/attacker.js'></script>
     <script src='js/main.js'></script>
 </html>

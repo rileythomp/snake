@@ -6,6 +6,8 @@ let first_click = true;
 
 let move_interval;
 
+let attacker_interval;
+
 let t;
 let seconds = 0;
 let minutes = 0;
@@ -41,13 +43,20 @@ for (let row = 0; row < board_len; ++row) {
     board_view.appendChild(row_view);
 }
 
-let snake = [new SnakeCell(8, 7, 37)];
+let snake = [new SnakeCell(10, 10, 37)];
 
 let food = new Food();
 food.generate_food(snake);
 
+let attacker_intervals;
+let attackers;
+let num_attackers;
+
 function handle_loss() {
     clearInterval(move_interval);
+    for (let i = 0; i < num_attackers; ++i) {
+        clearInterval(attacker_intervals[i]);
+    }
     clearTimeout(t);
     document.getElementById('game-msg').innerHTML = `Game over! You scored ${snake.length - 1} in ${format_time(minutes) + ':' + format_time(seconds)}`
     document.getElementById('play-again').style.display = 'block';
@@ -93,21 +102,34 @@ function move_in_direction() {
     }
 }
 
-
-function start_game(interval) {
+function start_game(interval, num_attackers) {
     move_interval = setInterval(function() {
         move_in_direction();
     }, interval);
 
+    attackers = [];
+
+    for (let i = 0; i < num_attackers; ++i) {
+        attackers.push(new Attacker(i));
+    }
+
+    attacker_intervals = [];
+
+    for (let i = 0; i < attackers.length; ++i) {
+        attacker_intervals.push(setInterval(function() {
+            attackers[i].chase(snake[Math.min(i, snake.length)]);
+        }, (interval * (3 + i))));
+    }
+
     timer();
 }
-
 
 document.onkeydown = function(ev) {
     if (first_click) {
         first_click = false
         let interval = Number(document.getElementById('level-select').value);
-        start_game(interval);
+        num_attackers = Number(document.getElementById('attacker-select').value);
+        start_game(interval, num_attackers);
     }
 
     if (ev.keyCode <= 40 && ev.keyCode >= 37) {
@@ -116,6 +138,10 @@ document.onkeydown = function(ev) {
 }
 
 document.getElementById('level-select').onchange = function() {
+    this.blur();
+}
+
+document.getElementById('attacker-select').onchange = function() {
     this.blur();
 }
 
@@ -129,7 +155,11 @@ function restart_game() {
     }
     snake = [new SnakeCell(8, 7, 37)];
     food.generate_food(snake);
+    for (let i = 0; i < attackers.length; ++i) {
+        attackers[i].reset();
+    }
     document.getElementById('score').innerHTML = snake.length - 1;
     document.getElementById('timer').innerHTML = '00:00';
     document.getElementById('game-msg').innerHTML = '&nbsp;';
+    document.getElementById('play-again').style.display = 'none';
 }
