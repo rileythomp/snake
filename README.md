@@ -1,5 +1,7 @@
 # snake
 
+https://gosnake.herokuapp.com/
+
 ![snake](screenshot.png)
 
 A snake game with 3 difficulty levels and the option to add 1-3 chasing attackers.
