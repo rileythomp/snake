@@ -23,29 +23,31 @@ class Attacker {
         }
     }
 
-    chase(snake_tail) {
+    chase(snake, index) {
         if (this.row == food.row && this.col == food.col) {
             this.cell_view.style.backgroundColor = '#BF616A';
         } else {
             this.cell_view.style.backgroundColor = '#3B4252';
         }
 
-        if (snake_tail.row > this.row) {
+        let snake_part = snake[index];
+
+        if (snake_part.row > this.row) {
             this.row += 1;
-        } else if (snake_tail.row < this.row) {
+        } else if (snake_part.row < this.row) {
             this.row -= 1;
         }
 
-        if (snake_tail.col > this.col) {
+        if (snake_part.col > this.col) {
             this.col += 1;
-        } else if (snake_tail.col < this.col) {
+        } else if (snake_part.col < this.col) {
             this.col -= 1;
         }
 
         this.cell_view = board_view.children[this.row].children[this.col];
         this.cell_view.style.backgroundColor = 'orange';
 
-        if (this.col == snake_tail.col && this.row == snake_tail.row) {
+        if (this.col == snake[0].col && this.row == snake[0].row) {
             handle_loss();
         }
     }

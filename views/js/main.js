@@ -117,7 +117,7 @@ function start_game(interval, num_attackers) {
 
     for (let i = 0; i < attackers.length; ++i) {
         attacker_intervals.push(setInterval(function() {
-            attackers[i].chase(snake[Math.min(i, snake.length)]);
+            attackers[i].chase(snake, Math.min(i, snake.length));
         }, (interval * (3 + i))));
     }
 
@@ -126,10 +126,15 @@ function start_game(interval, num_attackers) {
 
 document.onkeydown = function(ev) {
     if (first_click) {
-        first_click = false
         let interval = Number(document.getElementById('level-select').value);
         num_attackers = Number(document.getElementById('attacker-select').value);
-        start_game(interval, num_attackers);
+        if (interval > 0 && num_attackers >= 0) {
+            first_click = false
+            document.getElementById('game-msg').innerHTML = '&nbsp;';
+            start_game(interval, num_attackers);
+        } else {
+            document.getElementById('game-msg').innerHTML = 'Please select a difficulty and number of attackers';
+        }
     }
 
     if (ev.keyCode <= 40 && ev.keyCode >= 37) {

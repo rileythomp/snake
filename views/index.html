@@ -6,10 +6,12 @@
         <title>Snake</title>
         <link rel='shortcut icon' href='' type='image/png'>
         <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Poppins|Rubik|Lato|Raleway|Montserrat' type='text/css'>
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <link rel='stylesheet/less' type='text/css' href='styles/styles.less' />
         <script src='js/less.min.js' ></script>
     </head>
     <body>
+        <h2>Snake</h2>
         <div class='game-header'>
             <p id='timer'>00:00</p>
             <p>Score: <span id='score'>0</span> </p>
@@ -22,11 +24,13 @@
 
         <div id='game-settings'>
             <select id='level-select'>
+                <option selected disabled value='-1'>Difficulty</option>
                 <option value='200'>Easy</option>
                 <option value='125'>Medium</option>
                 <option value='75'>Hard</option>
             </select>
             <select id='attacker-select'>
+                <option selected disabled value='-1'>Attackers</option>
                 <option value='0'>0</option>
                 <option value='1'>1</option>
                 <option value='2'>2</option>
@@ -35,6 +39,7 @@
         </div>
 
         <button id='play-again' onclick='restart_game()'>Play Again</button>
+        <a target='blank' href='https://github.com/rileythomp/snake'><i class='fa fa-github'></i></a>
     </body>
     <script src='js/snake.js'></script>
     <script src='js/food.js'></script>
