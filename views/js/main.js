@@ -142,6 +142,74 @@ document.onkeydown = function(ev) {
     }
 }
 
+document.getElementById('go').addEventListener('click', function() {
+    start_game(200, 0);
+
+    let go_interval = setInterval(function() {
+        // snake[0].dir = (snake[0].dir < 40 ? snake[0].dir + 1 : 37);
+
+        let srow = snake[0].row;
+        let scol = snake[0].col;
+        let sdir = snake[0].dir;
+
+        if (sdir == 37 && scol <= 1) {
+            // go up or down
+            if (food.row > srow) {
+                snake[0].dir = 40;
+            } else {
+                snake[0].dir = 38;
+            }
+            return;
+        }
+        if (sdir == 39 && scol >= board_len - 2) {
+            // up or down 
+            if (food.row > srow) {
+                snake[0].dir = 40;
+            } else {
+                snake[0].dir = 38;
+            }
+            return
+        }
+        if (sdir == 38 && srow <= 1) {
+            // left or right 
+            if (food.col > scol) {
+                snake[0].dir = 39;
+            } else {
+                snake[0].dir = 37;
+            }
+            return
+        }
+        if (sdir == 40 && srow >= board_len - 2) {
+            // left or right
+            if (food.col > scol) {
+                snake[0].dir = 39;
+            } else {
+                snake[0].dir = 37;
+            }
+            return
+        }
+
+
+
+        let row_diff = Math.abs(food.row - srow);
+        let col_diff = Math.abs(food.col - scol);
+
+        if (row_diff > col_diff) {
+            if (food.row > srow && snake[0].dir != 38) {
+                snake[0].dir = 40;
+            } else if (food.row < srow && snake[0].dir != 40) {
+                snake[0].dir = 38;
+            }
+        } else {
+            if (food.col > scol && snake[0].dir != 37) {
+                snake[0].dir = 39;
+            } else if (food.col < scol && snake[0].dir != 39) {
+                snake[0].dir = 37
+            }
+        }
+    }, 800);
+})
+
 document.getElementById('level-select').onchange = function() {
     this.blur();
 }
